@@ -1,0 +1,127 @@
+<div ng-controller="CompanyProfileController">
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="profiletab" role="tablist">
+            <li role="presentation" class="active"><a href="javascript:void(0)" id="profile_tab" aria-controls="profile" role="tab" data-toggle="tab">Profile Overview</a></li>
+            <li role="presentation"><a href="javascript:void(0)" id="education_tab" aria-controls="education" role="tab" data-toggle="tab">Education</a></li>
+            <li role="presentation"><a href="javascript:void(0)" id="proffessional_tab" aria-controls="messages" role="tab" data-toggle="tab">Proffessional</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="profile">
+                <h1>Profile</h1>
+                <div class="row">
+                    <form ng-submit="updateProfile()">
+                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                            <p class="text-danger text-center" ng-if="serverError">{{serverError}}</p>
+                            <div class="form-group" ng-class="error.email?'has-error':''">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" ng-model="profile.first_name" placeholder="First Name">
+                            </div>
+                            <div class="form-group" ng-class="error.password?'has-error':''">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" ng-model="profile.last_name" placeholder="Last Name">
+                            </div>
+                            <div class="form-group" ng-class="error.email?'has-error':''">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" ng-model="profile.email" placeholder="Email">
+                            </div>
+                            <div class="form-group" ng-class="error.password?'has-error':''">
+                                <label>Password</label>
+                                <input type="password" class="form-control" ng-model="profile.password" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-default">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="education">
+                <h1>Education</h1>
+                <div class="row">
+                    <form ng-submit="updateEducation()">
+                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                            <p class="text-danger text-center" ng-if="serverError">{{serverError}}</p>
+                            <div class="form-group" ng-class="error.password?'has-error':''">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control" ng-model="profile.company_name" placeholder="Company Name">
+                            </div>
+                            <div class="form-group" ng-class="error.password?'has-error':''">
+                                <label>Company Id</label>
+                                <input type="text" class="form-control" ng-model="profile.business_id" placeholder="Company Id" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-default">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="proffessional">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1>Professional</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#createEducation">Add</button>
+                            <button class="btn btn-sm btn-info">Modify</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>School/College</th>
+                            <th>Degree</th>
+                            <th>Year</th>
+                        </thead>
+                        <tbody>
+                         	<tr ng-repeat="ed in education">
+                                <td class="text-center">{{ed.institution}}</td>
+                                <td class="text-center">{{ed.qualification}}</td>
+                                <td class="text-center">{{ed.period_start+' -- '+ed.period_end}}</td>
+                            </tr>
+                            <tr ng-if="education.length==0">
+                                <td class="text-center" colspan="3">No education details found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Education</h4>
+                </div>
+                <form role="form" ng-submit="addEdu()">
+	                <div class="modal-body">
+                    	<div class="form-group {{errorEducation.institution?'has-error':''}}">
+                    		<label>School/College</label>
+                    		<input class="form-control" ng-model="addEducation.institution"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.qualification?'has-error':''}}">
+                    		<label>Qualification</label>
+                    		<input class="form-control" ng-model="addEducation.qualification"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
+                    		<label>From</label>
+                    		<input class="form-control datepicker" name="period_start" ng-model="addEducation.period_start"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
+                    		<label>To</label>
+                    		<input class="form-control datepicker" name="period_end" ng-model="addEducation.period_end"/>
+                    	</div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button type="submit" class="btn btn-primary">Save changes</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

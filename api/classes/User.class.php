@@ -28,6 +28,19 @@ Class User extends helper
 		return $result;
 	}
 
+	public function editEducation($user_id,$data)
+	{
+		
+		$result=$this->insertRow(sprintf("UPDATE education SET institution='%s',qualification='%s',period_start='%s',period_end='%s' WHERE user_id='%s' AND id='%s'",$data['institution'],$data['qualification'],$data['period_start'],$data['period_end'],$user_id,$data['id']));
+
+		if(!$result)
+		{
+			return $this->formatError("Insert failed");
+		}
+
+		return $result;
+	}
+
 	public function insertUser($data)
 	{
 		if(isset($data['email']))

@@ -55,7 +55,7 @@ yapp.controller("CompanySignupController", ["$scope", "$location", "$http", func
 	    });
 	}
 }]);
-yapp.controller("CompanyLoginController", ["$scope", "$location", "$http", function($scope, $location, $http) {
+yapp.controller("CompanyLoginController", ["$scope", "$location", "$http","$cookies", function($scope, $location, $http,$cookies) {
 
 	//signup initialize
 	$scope.credential={"email":"","password":""};
@@ -92,7 +92,14 @@ yapp.controller("CompanyLoginController", ["$scope", "$location", "$http", funct
 	       	}
 	       	else if(success)
 	       	{
-	       		$location.path("company/profile");
+	       		$cookies.put('first_name',success.data.first_name);
+	       		$cookies.put('last_name',success.data.last_name);
+	       		$cookies.put('company_user_id',success.data.id);
+	       		$cookies.put('company_id',success.data.company_id);
+	       		setTimeout(function(){
+	       			$location.path("company/profile");
+	       		},200);
+	       		
 	       	}
 	    });
 	}
@@ -191,8 +198,6 @@ yapp.controller("CompanyProfileController", ["$scope", "$location", "$http", fun
 	         $("#createEducation").modal("hide");
 	    });
     }
-
-    $('.datepicker').datepicker();
 
     $scope.editPopup=function(index){
     	$scope.editEducation=$scope.education[index];

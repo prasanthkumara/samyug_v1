@@ -1,18 +1,5 @@
 yapp.controller("CompanyProductController", ["$scope", "$location", "$http", function($scope, $location, $http) {
 
-	$('#profile_tab').click(function(){
-		$(".tab-pane").removeClass("active in");
-		$("#profile").addClass("active in");
-	}); // Select first tab
-	$('#education_tab').click(function(){
-		$(".tab-pane").removeClass("active in");
-		$("#education").addClass("active in");
-	});
-	$('#proffessional_tab').click(function(){
-		$(".tab-pane").removeClass("active in");
-		$("#proffessional").addClass("active in");
-	});
-
 	//signup initialize
 	$scope.credential={"email":"","password":""};
 	$scope.error={"email":false,"password":false};
@@ -34,10 +21,10 @@ yapp.controller("CompanyProductController", ["$scope", "$location", "$http", fun
 	       	}
 	    });
 	}
-	$scope.getProfile=function(){
+	$scope.getProducts=function(){
 		$http({
 	        method: "POST",
-	        url: HOST + API_PATH + "/company/profile.php",
+	        url: HOST + API_PATH + "/company/productList.php",
 	        headers: {
 	            "Content-Type": "application/x-www-form-urlencoded"
 	        },
@@ -45,35 +32,57 @@ yapp.controller("CompanyProductController", ["$scope", "$location", "$http", fun
 	        if(success.data.error)
 	        {
 	            $scope.serverError=success.data.error;
-	            $location.path("company/login");
+	            alert($scope.serverError);
+	            if($scope.serverError.indexOf("Session")>-1)
+	            {
+	            	$location.path("#/company/login");
+	            }
 	       	}
 	       	else
 	       	{
-	       		$scope.profile=success.data;
-	       		$scope.education=$scope.profile.education;
+	       		$scope.products=success.data;
 	       	}
 
 	    });
 	}
 
-	$scope.getProfile();
+	$scope.attachFileEvent=function(){
+		$('#fileupload').fileupload({
+	        dataType: 'json',
+	        progressall: function (e, data) {
+		        var progress = parseInt(data.loaded / data.total * 100, 10);
+		        $('#progress .progress-bar').css(
+		            'width',
+		            progress + '%'
+		        );
+		    },
+	        complete: function (result, textStatus, jqXHR) {
+	        	console.log(result.responseJSON);
+	        	$scope.addProductModel.image=result.responseJSON.filename;
+	        	console.log($scope.addProductModel);
+	        }
+	    });
+	}
+
+	$scope.attachFileEvent();
+
+	$scope.getProducts();
 	
-    $scope.errorEducation={"institution":false,"qualification":false,"period_start":false,"period_end":false};
+    $scope.errorProduct={"title":false,"image":false,"description":false,"price":false};
+    $scope.addProductModel={"title":"","image":"","description":"","price":""};
     $scope.parent = {checkOut:''};
-    $scope.addEdu=function(){
+    $scope.addProduct=function(){
     	var errorFlag=false;
-    	$scope.addEducation.period_start=angular.element("input[name=period_start]").val();
-    	$scope.addEducation.period_end=angular.element("input[name=period_end]").val();
-    	for(i in $scope.addEducation)
+    	for(i in $scope.addProductModel)
     	{
-    		$scope.errorEducation[i]=false;
-    		if(($scope.addEducation[i]==undefined)||($scope.addEducation[i]==""))
+    		$scope.errorProduct[i]=false;
+    		if($scope.addProductModel[i]=="")
     		{
     			errorFlag=true;
-    			$scope.errorEducation[i]=true;
+    			$scope.errorProduct[i]=true;
     		}
     	}
-    	console.log($scope.addEducation);
+
     	if(errorFlag)
     	{
     		return false;
@@ -81,34 +90,31 @@ yapp.controller("CompanyProductController", ["$scope", "$location", "$http", fun
 
     	$http({
 	        method: "POST",
-	        url: HOST + API_PATH + "/company/inserteducation.php",
-	        data:$.param($scope.addEducation),
+	        url: HOST + API_PATH + "/company/insertproduct.php",
+	        data:$.param($scope.addProductModel),
 	        headers: {
 	            "Content-Type": "application/x-www-form-urlencoded"
 	        },
 	    }).then(function(success) {
-	         $scope.getProfile();
-	         $("#createEducation").modal("hide");
+	         $scope.getProducts();
+	         $("#createProduct").modal("hide");
 	    });
     }
 
-    $('.datepicker').datepicker();
-
     $scope.editPopup=function(index){
-    	$scope.editEducation=$scope.education[index];
+    	console.log($scope.products[index]);
+    	$scope.editProductModel=$scope.products[index];
     }
 
-    $scope.editEdu=function(){
+    $scope.editProduct=function(){
     	var errorFlag=false;
-    	$scope.editEducation.period_start=angular.element("#editEducation input[name=period_start]").val();
-    	$scope.editEducation.period_end=angular.element("#editEducation input[name=period_end]").val();
-    	for(i in $scope.editEducation)
+    	for(i in $scope.editProductModel)
     	{
-    		$scope.errorEducation[i]=false;
-    		if(($scope.editEducation[i]==undefined)||($scope.editEducation[i]==""))
+    		$scope.errorProduct[i]=false;
+    		if(($scope.editProductModel[i]==undefined)||($scope.editProductModel[i]==""))
     		{
     			errorFlag=true;
-    			$scope.errorEducation[i]=true;
+    			$scope.errorProduct[i]=true;
     		}
     	}
     	
@@ -119,14 +125,17 @@ yapp.controller("CompanyProductController", ["$scope", "$location", "$http", fun
 
     	$http({
 	        method: "POST",
-	        url: HOST + API_PATH + "/company/editeducation.php",
-	        data:$.param($scope.editEducation),
+	        url: HOST + API_PATH + "/products/editproduct.php",
+	        data:$.param($scope.editProductModel),
 	        headers: {
 	            "Content-Type": "application/x-www-form-urlencoded"
 	        },
 	    }).then(function(success) {
 	         //$scope.getProfile();
-	         $("#editEducation").modal("hide");
+	         $("#editProduct").modal("hide");
 	    });
     }
+
+
+
 }]);

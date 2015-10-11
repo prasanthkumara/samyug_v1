@@ -1,4 +1,6 @@
 <div ng-controller="CompanyProductController">
+<main>
+<section class="cd-section index cd-selected">
     <div class="row">
         <div class="col-lg-6">
             <h1>Products</h1>
@@ -20,53 +22,67 @@
                     <th class="text-center">Action</th>
                 </thead>
                 <tbody>
-                 	<tr ng-repeat="ed in education track by $index">
-                        <td class="text-center">{{ed.institution}}</td>
-                        <td class="text-center">{{ed.qualification}}</td>
-                        <td class="text-center">{{ed.period_start+' -- '+ed.period_end}}</td>
+                 	<tr ng-repeat="product in products track by $index">
+                        <td class="text-center">{{product.title}}</td>
+                        <td class="text-center">{{product.image}}</td>
+                        <td class="text-center">{{product.price}}</td>
+                        <td class="text-center">{{product.description}}</td>
                         <td class="text-center">
-                        <button type="button" class="btn btn-sm btn-info" ng-click="editPopup($index)" data-toggle="modal" data-target="#editEducation"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-sm btn-info" ng-click="editPopup($index)" data-toggle="modal" data-target="#editProduct"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                         	<button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                         </td>
                     </tr>
-                    <tr ng-if="education.length==0">
-                        <td class="text-center" colspan="3">No education details found</td>
+                    <tr ng-if="products.length==0">
+                        <td class="text-center" colspan="5">No products found</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+</section>
+</main>
     <!-- Modal -->
     <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Education</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Product</h4>
                 </div>
-                <form role="form" ng-submit="addEdu()">
-	                <div class="modal-body">
-                    	<div class="form-group {{errorEducation.institution?'has-error':''}}">
-                    		<label>School/College</label>
-                    		<input class="form-control" ng-model="addEducation.institution"/>
-                    	</div>
-                    	<div class="form-group {{errorEducation.qualification?'has-error':''}}">
-                    		<label>Qualification</label>
-                    		<input class="form-control" ng-model="addEducation.qualification"/>
-                    	</div>
-                    	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
-                    		<label>From</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_start" ng-model="addEducation.period_start"/>
-                    	</div>
-                    	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
-                    		<label>To</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_end" ng-model="addEducation.period_end"/>
-                    	</div>
-	                </div>
-	                <div class="modal-footer">
-	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	                    <button type="submit" class="btn btn-primary">Save changes</button>
-	                </div>
+                
+                <form role="form" ng-submit="addProduct()">
+                    <div class="modal-body">
+                        <div class="form-group {{errorProduct.title?'has-error':''}}">
+                            <label>Name</label>
+                            <input class="form-control" ng-model="addProductModel.title"/>
+                        </div>
+                        <div class="form-group {{errorProduct.price?'has-error':''}}">
+                            <label>Price</label>
+                            <input class="form-control" ng-model="addProductModel.price"/>
+                        </div>
+                        <div class="form-group {{errorProduct.description?'has-error':''}}">
+                            <label>Description</label>
+                            <textarea class="form-control" name="description" ng-model="addProductModel.description"/>
+                        </div>
+                        
+                        <div class="form-group {{errorProduct.image?'has-error':''}}" style="position:relative">
+                            <label>Select Image</label>
+                            <div style="position:relative;height:40px">
+                                <input placeholder="Click here to select and upload image" class="form-control" ng-model="addProductModel.image"/>
+                                <input style="position:absolute;opacity:0;xz-index:10;width:100%;height:40px;top:0px" id="fileupload" type="file" name="files[]" data-url="api/products/fileupload.php" multiple>
+                            </div>
+                            
+                        </div>
+                        <div id="progress" class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -79,29 +95,38 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Edit Education</h4>
                 </div>
-                <form role="form" ng-submit="editEdu()">
-	                <div class="modal-body">
-                    	<div class="form-group {{errorEducation.institution?'has-error':''}}">
-                    		<label>School/College</label>
-                    		<input class="form-control" ng-model="editEducation.institution"/>
-                    	</div>
-                    	<div class="form-group {{errorEducation.qualification?'has-error':''}}">
-                    		<label>Qualification</label>
-                    		<input class="form-control" ng-model="editEducation.qualification"/>
-                    	</div>
-                    	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
-                    		<label>From</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_start" ng-model="editEducation.period_start"/>
-                    	</div>
-                    	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
-                    		<label>To</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_end" ng-model="editEducation.period_end"/>
-                    	</div>
-	                </div>
-	                <div class="modal-footer">
-	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	                    <button type="submit" class="btn btn-primary">Save changes</button>
-	                </div>
+                <form role="form" ng-submit="editProduct()">
+                    <div class="modal-body">
+                        <div class="form-group {{errorProduct.title?'has-error':''}}">
+                            <label>Name</label>
+                            <input class="form-control" ng-model="editProductModel.title"/>
+                        </div>
+                        <div class="form-group {{errorProduct.price?'has-error':''}}">
+                            <label>Price</label>
+                            <input class="form-control" ng-model="editProductModel.price"/>
+                        </div>
+                        <div class="form-group {{errorProduct.description?'has-error':''}}">
+                            <label>Description</label>
+                            <textarea class="form-control" name="description" ng-model="editProductModel.description"/>
+                        </div>
+                        
+                        <div class="form-group {{errorProduct.image?'has-error':''}}" style="position:relative">
+                            <label>Select Image</label>
+                            <div style="position:relative;height:40px">
+                                <input placeholder="Click here to select and upload image" class="form-control" ng-model="editProductModel.image"/>
+                                <input style="position:absolute;opacity:0;xz-index:10;width:100%;height:40px;top:0px" id="fileupload" type="file" name="files[]" data-url="api/products/fileupload.php" multiple>
+                            </div>
+                            
+                        </div>
+                        <div id="progress" class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
                 </form>
             </div>
         </div>

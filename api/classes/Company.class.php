@@ -86,7 +86,7 @@ Class Company extends helper
 			return $this->formatError("Missing parameters",400);
 		}
 
-		$result=$this->getRow(sprintf("SELECT * FROM users WHERE email='%s' AND
+		$result=$this->getRow(sprintf("SELECT *,b.id AS company_id FROM users a LEFT JOIN company b ON a.id=b.user_id WHERE email='%s' AND
 			 password='%s'",$email,$password));
 
 		if(empty($result))
@@ -97,6 +97,7 @@ Class Company extends helper
 		session_start();
 		$_SESSION['email']=$email;
 		$_SESSION['id']=$result['id'];
+		$_SESSION['company_id']=$result['company_id'];
 		$_SESSION['first_name']=$result['first_name'];
 		$_SESSION['last_name']=$result['last_name'];
 
@@ -117,9 +118,20 @@ Class Company extends helper
 
 		$result["email"]=$_SESSION['email'];
 		$result["id"]=$_SESSION['id'];
+		$result["company_id"]=$_SESSION['company_id'];
 		$result["first_name"]=$_SESSION['first_name'];
 		$result["last_name"]=$_SESSION['last_name'];
 
 		return $result;
+	}
+
+	public function logout()
+	{
+		if(!isset($_SESSION))
+		{
+			session_start();
+		}
+
+		session_destroy();
 	}
 }

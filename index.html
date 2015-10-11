@@ -1,13 +1,18 @@
 <!DOCTYPE HTML>
 <html ng-app="samyug">
 <head>
-<link rel="stylesheet" type="text/css" href="css/datepicker.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/main.css">
-	<title></title>
+  <link rel="stylesheet" type="text/css" href="css/datepicker.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/reset.css"> <!-- CSS reset -->
+  <link rel="stylesheet" type="text/css" href="css/style.css"> <!-- Resource style -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+  <script src="js/modernizr.js"></script> <!-- Modernizr -->
 </head>
 <body>
-  <nav class="nav-home navbar navbar-default">
+  <!-- <nav class="nav-home navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">
@@ -21,7 +26,52 @@
         <li><a href="#contactus">CONTACT US</a></li>
       </ul>
     </div>
-  </nav>
+  </nav> -->
+<div ng-controller="menuController">
+  <a href="javascript:void(0)" class="cd-nav-trigger">
+  Menu<span><!-- used to create the menu icon --></span>
+  </a> <!-- .cd-nav-trigger -->
+
+    <nav class="cd-nav-container" id="cd-nav">
+        <header>
+            <h3>Navigation</h3>
+            <a href="#0" class="cd-close-nav">Close</a>
+        </header>
+
+        <ul class="cd-nav">
+            <li class="cd-selected" data-menu="index">
+                <a href="#company/profile">
+                    <span>
+                      <i class="fa fa-user"></i>
+                    </span>
+
+                    <em>Profile</em>
+                </a>
+            </li>
+
+            <li data-menu="projects">
+                <a href="#company/products">
+                    <span>
+                        <i class="fa fa-cubes"></i>
+                    </span>
+
+                    <em>Products</em>
+                </a>
+            </li>
+            <li data-menu="contact">
+                <a href="javascript:void(0)" ng-click="logout()">
+                    <span>
+                      <i class="fa fa-sign-out"></i>
+                    </span>
+
+                    <em>Log Out</em>
+                </a>
+            </li>
+        </ul> <!-- .cd-3d-nav -->
+    </nav>
+</div>
+<!--  -->
+    <!-- <div class="cd-overlay"></div> -->
 
   <div class="container-fluid" ng-view>
   	
@@ -32,11 +82,16 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/angular/angular.min.js"></script>
   <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+  <script type="text/javascript" src="js/angular/angular-cookies.js"></script>
   <script type="text/javascript" src="js/angular/angular-sanitize.min.js"></script>
+  <script src="js/vendor/jquery.ui.widget.js"></script>
+  <script src="js/jquery.iframe-transport.js"></script>
+  <script src="js/jquery.fileupload.js"></script>
 
   <script type="text/javascript" src="js/app.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/company.js"></script>
   <script type="text/javascript" src="js/company/products.js"></script>
+  <script type="text/javascript" src="js/menu.js"></script>
 </body>
 </html>

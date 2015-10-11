@@ -1,5 +1,6 @@
 <div ng-controller="CompanyProfileController">
-    <div>
+    <main>
+    <section class="cd-section index cd-selected">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="profiletab" role="tablist">
             <li role="presentation" class="active"><a href="javascript:void(0)" id="profile_tab" aria-controls="profile" role="tab" data-toggle="tab">Profile Overview</a></li>
@@ -112,7 +113,8 @@
                 </div>
             </div>
         </div>
-    </div>
+        </section>
+    </main>
     <!-- Modal -->
     <div class="modal fade" id="createEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -133,11 +135,11 @@
                     	</div>
                     	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
                     		<label>From</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_start" ng-model="addEducation.period_start"/>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_start" ng-model="addEducation.period_start"/>
                     	</div>
                     	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
                     		<label>To</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_end" ng-model="addEducation.period_end"/>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_end" ng-model="addEducation.period_end"/>
                     	</div>
 	                </div>
 	                <div class="modal-footer">
@@ -168,11 +170,11 @@
                     	</div>
                     	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
                     		<label>From</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_start" ng-model="editEducation.period_start"/>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_start" ng-model="editEducation.period_start"/>
                     	</div>
                     	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
                     		<label>To</label>
-                    		<input class="form-control datepicker" data-date-format="yyyy-mm-dd" name="period_end" ng-model="editEducation.period_end"/>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_end" ng-model="editEducation.period_end"/>
                     	</div>
 	                </div>
 	                <div class="modal-footer">

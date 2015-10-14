@@ -2,17 +2,34 @@
 
 Class Products extends helper
 {
-	public function listProducts()
+	public function listProducts($company_id)
 	{
 
-		$result=$this->listTable(sprintf("SELECT * FROM products"));
+		$result=$this->listTable(sprintf("SELECT * FROM products WHERE company_id='%s'",$company_id));
+
+		return $result;
+	}
+
+	public function listComments($company_id,$product_id)
+	{
+
+		$result=$this->listTable(sprintf("SELECT * FROM product_comments a LEFT JOIN users b ON a.user_id=b.id WHERE product_id='%s'",$product_id));
+
+		return $result;
+	}
+
+	public function getProducts($company_id,$product_id)
+	{
+
+		$result=$this->getRow(sprintf("SELECT * FROM products WHERE company_id='%s' AND id='%s'",$company_id,$product_id));
 
 		return $result;
 	}
 
 	public function insertProduct($company_id,$data)
 	{
-		$result=$this->insertRow(sprintf("INSERT INTO products(company_id,title,price,description,image,created) VALUES('%s','%s','%s','%s','%s',NOW())",$company_id,$data['title'],$data['price'],$data['description'],$data['image']));
+		$query="INSERT INTO products(company_id,title,price,description,image,created) VALUES('%s','%s','%s','%s','%s',NOW())";
+		$result=$this->insertRow($query,array($company_id,$data['title'],$data['price'],$data['description'],$data['image']));
 
 		if(isset($result['error']))
 		{
@@ -24,7 +41,13 @@ Class Products extends helper
 
 	public function updateProduct($data)
 	{
-		$result=$this->insertRow(sprintf("UPDATE products SET title='%s',price='%s',description='%s',image='%s' WHERE id='%s'",$data['title'],$data['price'],$data['description'],$data['image'],$data['id']));
+		$query="UPDATE products SET title='%s',price='%s',description='%s',image='%s' WHERE id='%s'";
+		$queryData[0]=$data['title'];
+		$queryData[1]=$data['price'];
+		$queryData[2]=$data['description'];
+		$queryData[3]=$data['image'];
+		$queryData[4]=$data['id'];
+		$result=$this->insertRow($query,$queryData);
 
 		if(isset($result['error']))
 		{

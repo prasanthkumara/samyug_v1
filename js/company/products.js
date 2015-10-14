@@ -139,3 +139,51 @@ yapp.controller("CompanyProductController", ["$scope", "$location", "$http", fun
 
 
 }]);
+
+yapp.controller("productDetailsController",["$scope","$location","$http","$routeParams",function($scope,$location,$http,$routeParams){
+	$scope.getProducts=function(){
+		$http({
+	        method: "POST",
+	        url: HOST + API_PATH + "/company/getproducts.php",
+	        data:$.param({"id":$routeParams.id}),
+	        headers: {
+	            "Content-Type": "application/x-www-form-urlencoded"
+	        },
+	    }).then(function(success) {
+	        if(success.data.error)
+	        {
+	            
+	       	}
+	       	else
+	       	{
+	       		$scope.productDetail=success.data;
+	       		console.log($scope.productDetail);
+	       	}
+
+	    });
+	}
+
+	$scope.getComments=function(){
+		$http({
+	        method: "POST",
+	        url: HOST + API_PATH + "/company/getcomments.php",
+	        data:$.param({"id":$routeParams.id}),
+	        headers: {
+	            "Content-Type": "application/x-www-form-urlencoded"
+	        },
+	    }).then(function(success) {
+	        if(success.data.error)
+	        {
+	            
+	       	}
+	       	else
+	       	{
+	       		$scope.comments=success.data;
+	       	}
+
+	    });
+	}
+
+	$scope.getProducts();
+	$scope.getComments();
+}]);

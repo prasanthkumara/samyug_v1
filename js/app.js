@@ -12,6 +12,11 @@ yapp.config(['$routeProvider',function($routeProvider) {
         	return 'views/'+$routeParams.page+'/'+$routeParams.child+'.html'
         },
         controller:'pageController'
+    }).when('/:page/:subfolder/:subpage/:id', {
+        templateUrl: function($routeParams){
+            return 'views/'+$routeParams.page+'/'+$routeParams.subfolder+'/'+$routeParams.subpage+'.html'
+        },
+        controller:'pageController'
     });
 }]);
 

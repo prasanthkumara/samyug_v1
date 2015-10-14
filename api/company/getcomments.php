@@ -9,7 +9,7 @@ $companyObj=new Company();
 
 if(($result=$companyObj->checkLoggedIn())&&!isset($result['error']))
 {
-	$result=$productObj->listProducts($result['company_id']);
+	$result=$productObj->listComments($result['company_id'],$_POST['id']);
 }
 
 echo json_encode($result);

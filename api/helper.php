@@ -51,13 +51,19 @@ Class Helper
 		return $result;
 	}
 
-	public function insertRow($query)
+	public function insertRow($query,$values)
 	{
-		error_log($query);
-		$mysqli=$this->connectDB();
-		
-		$rows=$mysqli->query($query);
 
+		$mysqli=$this->connectDB();
+
+		$i=0;
+		foreach($values as $key=>$value)
+		{
+			$values[$i]=mysqli_escape_string($mysqli,$values[$i]);
+			$i++;
+		}
+
+		$rows=$mysqli->query(vsprintf($query, $values));
 		if (!$rows) 
 		{
 		    return $this->formatError($mysqli->error);

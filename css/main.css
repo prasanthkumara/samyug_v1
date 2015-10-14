@@ -57,3 +57,25 @@ main.scale-down {
   transform: translateX(0);
   transition: transform 0.4s 0s;
 }
+.media-width
+{
+  width:150px;
+}
+.media-right-width
+{
+  width:550px;
+}
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}

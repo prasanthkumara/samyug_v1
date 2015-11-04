@@ -2,10 +2,9 @@
 
 Class Products extends helper
 {
-	public function listProducts($company_id)
+	public function listProducts($company_id) 
 	{
-
-		$result=$this->listTable(sprintf("SELECT * FROM products WHERE company_id='%s'",$company_id));
+		$result=$this->listTable(sprintf("SELECT * FROM products a LEFT JOIN company b ON a.company_id=b.id WHERE company_id='%s' AND category='%s'",$company_id,WEB_TYPE));
 
 		return $result;
 	}
@@ -53,6 +52,33 @@ Class Products extends helper
 		{
 			return $result;
 		}
+
+		return $result;
+	}
+
+	public function rateProduct($rate,$id)
+	{
+		if(empty($rate)||empty($id))
+		{
+			return array("error"=>"Invalid parameters");
+		}
+
+		$query="INSERT INTO rating (rate,id) VALUES ('%s','%s')";
+		$queryData[0]=$rate;
+		$queryData[1]=$id;
+		$result=$this->insertRow($query,$queryData);
+
+		if(isset($result['error']))
+		{
+			return $result;
+		}
+
+		return $result;
+	}
+
+	public function getProductRating($id)
+	{
+		$result=$this->getRow(sprintf("SELECT SUM(rate) DIV COUNT(*) AS rate FROM rating WHERE id='%s' AND ratingtype='PRODUCT'",$id));
 
 		return $result;
 	}

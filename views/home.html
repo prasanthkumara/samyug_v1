@@ -1,0 +1,23 @@
+<div ng-include="'includes/homenav.html'"></div>
+<div ng-controller="HomeController">
+<h1>Latest News on {{(SITE_CATEGORY=='GREEN')?'Environment':''}}{{(SITE_CATEGORY=='FURNITURE')?'Furnitures':''}}{{(SITE_CATEGORY=='MACHINERY')?'Machines':''}}</h1>
+	<div class="table-container">
+		<table class="table">
+			<thead>
+				<td>Title</td>
+				<td>Description</td>
+				<td>Created</td>
+			</thead>
+			<tbody>
+				<tr ng-repeat="news in newslist">
+					<td>{{news.title}}</td>
+					<td>{{news.description}}</td>
+					<td>{{news.created}}</td>
+				</tr>
+				<tr ng-if="newslist.length==0">
+					<td colspan="3">No news</td>
+				</tr>
+			</tbody>	
+		</table>
+	</div>
+</div>

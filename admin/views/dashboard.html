@@ -1,0 +1,22 @@
+<div ng-controller="dashboardController">
+	<h1>DASHBOARD</h1>
+	<div class="table-container">
+		<table class="table">
+			<thead>
+				<td>Title</td>
+				<td>Description</td>
+				<td>Created</td>
+			</thead>
+			<tbody>
+				<tr ng-repeat="news in newslist">
+					<td>{{news.title}}</td>
+					<td>{{news.description}}</td>
+					<td>{{news.created}}</td>
+				</tr>
+				<tr ng-if="newslist.length==0">
+					<td colspan="3">No news</td>
+				</tr>
+			</tbody>	
+		</table>
+	</div>
+</div>

@@ -47,7 +47,7 @@ Class User extends helper
 		{
 			$this->checkUser($data['email']);
 		}
-		$result=$this->insertRow(sprintf("INSERT INTO company(name,sub_title,description,business_id) VALUES('%s','%s','%s','%s')",$data['name'],$data['sub_title'],$data['description'],$data['business_id']));
+		$result=$this->insertRow(sprintf("INSERT INTO users(first_name,last_name,email,password) VALUES('%s','%s','%s','%s')",$data['first_name'],$data['last_name'],$data['email'],$data['password']));
 
 		if(!$result)
 		{

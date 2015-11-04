@@ -1,0 +1,28 @@
+<div ng-controller="UserSignupController">
+<h1 class="text-center">Register your user</h1>
+    <div class="row row-centered">
+        <div class="col-lg-7 col-md-12 col-xs-12 col-sm-12 col-centered">
+            <form ng-submit="signUp()">
+                <div class="form-group" ng-class="error.first_name?'has-error':''">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" ng-model="credential.first_name" placeholder="First Name">
+                </div>
+                <div class="form-group" ng-class="error.first_name?'has-error':''">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" ng-model="credential.last_name" placeholder="Last Name">
+                </div>
+            	<p class="text-danger text-center" ng-if="serverError">{{serverError}}</p>
+                <div class="form-group" ng-class="error.email?'has-error':''">
+                    <label>Email address</label>
+                    <input type="email" class="form-control" ng-model="credential.email" placeholder="Email">
+                </div>
+                <div class="form-group" ng-class="error.password?'has-error':''">
+                    <label>Password</label>
+                    <input type="password" class="form-control" ng-model="credential.password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-default">Create</button>
+                <a href="#/users/login">Already existing user ? login</a>
+            </form>
+        </div>
+    </div>
+</div>

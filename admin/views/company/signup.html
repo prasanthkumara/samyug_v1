@@ -1,0 +1,40 @@
+<div ng-controller="CompanySignupController">
+<h1 class="text-center">Register your company</h1>
+    <div class="row row-centered">
+        <div class="col-lg-7 col-md-12 col-xs-12 col-sm-12 col-centered">
+            <form ng-submit="signUp()">
+            	<p class="text-danger text-center" ng-if="serverError">{{serverError}}</p>
+                <div class="form-group" ng-class="error.email?'has-error':''">
+                    <label>Email address</label>
+                    <input type="email" class="form-control" ng-model="credential.email" placeholder="Email">
+                </div>
+                <div class="form-group" ng-class="error.password?'has-error':''">
+                    <label>Password</label>
+                    <input type="password" class="form-control" ng-model="credential.password" placeholder="Password">
+                </div>
+                <div class="form-group" ng-class="error.name?'has-error':''">
+                    <label>Company Name</label>
+                    <input type="text" class="form-control" ng-model="credential.name" placeholder="Company Name">
+                </div>
+                <div class="form-group" ng-class="error.business_id?'has-error':''">
+                    <label>Company Id</label>
+                    <input type="text" class="form-control" ng-model="credential.business_id" placeholder="Company Id">
+                </div>
+                <div class="form-group" ng-class="error.sub_title?'has-error':''">
+                    <label>Sub Title</label>
+                    <textarea class="form-control" ng-model="credential.sub_title" placeholder="Sub Title"></textarea>
+                </div>
+                <div class="form-group" ng-class="error.address?'has-error':''">
+                    <label>Address</label>
+                    <textarea class="form-control" ng-model="credential.address" placeholder="Address"></textarea>
+                </div>
+                <div class="form-group" ng-class="error.description?'has-error':''">
+                    <label>Description</label>
+                    <textarea class="form-control" ng-model="credential.description" placeholder="Description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+                <a href="#/company/login">Already existing user ? login</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+.nav-home
+{
+	margin-bottom:0px;
+}
+.banner
+{
+	width:100%;
+}
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+.datepicker{z-index:1151 !important;}
+.add-btn-margin
+{
+	margin-top:19px;
+}
+
+
+.cd-nav-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 0.4s;
+}
+.cd-nav-container.is-visible {
+  transform: translateX(0);
+}
+ 
+main {
+  transition: transform 0.4s;
+}
+main.scale-down {
+  transform: scale(0.9);
+}
+.cd-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateX(100%);
+  transition: transform 0s 0.4s;
+}
+.cd-section.cd-selected {
+  position: relative;
+  transform: translateX(0);
+  transition: transform 0.4s 0s;
+}
+.media-width
+{
+  width:150px;
+}
+.media-right-width
+{
+  width:550px;
+}
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}

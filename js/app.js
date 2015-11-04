@@ -1,6 +1,8 @@
 var yapp = angular.module("samyug", ["ngRoute",'ngCookies']);
 yapp.config(['$routeProvider',function($routeProvider) {
-    $routeProvider.when('/login', {
+    $routeProvider.when('/', {
+        templateUrl: 'views/home.html'
+    }).when('/login', {
         templateUrl: 'views/login.html'
     }).when('/:page', {
         templateUrl: function($routeParams){
@@ -27,6 +29,11 @@ yapp.directive('datepicker', ['$document', function($document) {
     }
   };
 }]);
+yapp.directive('userNav',function(){
+    return {
+        templateUrl: '/includes/usernav.html',
+    }
+})
 
 yapp.controller("pageController", ["$scope", "$location", "$http", function($scope, $location, $http) {
     toggleNav(false);

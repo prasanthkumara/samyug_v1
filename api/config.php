@@ -10,5 +10,18 @@ ini_set('display_startup_errors', true);
 	define("MYSQL_PASSWORD","guddu007");
 	define("MYSQL_HOST","localhost");
 	define("MYSQL_DATABASE","samyug");
-	define("HOST",$_SERVER['REQUEST_URI']);
+	define("HOST",$_SERVER['SERVER_NAME']);
+	if(HOST=="furniture.samyug.localhost")
+	{
+		define("WEB_TYPE","FURNITURE");
+	}
+	else if(HOST=="furniture.samyug.localhost")
+	{
+		define("WEB_TYPE","FURNITURE");
+	}
+	else if(HOST=="furniture.samyug.localhost")
+	{
+		define("WEB_TYPE","FURNITURE");
+	}
+	
 ?>

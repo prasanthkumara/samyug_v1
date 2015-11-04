@@ -1,0 +1,197 @@
+<div ng-include="'/includes/usernav.html'"></div>
+<div ng-controller="UserProfileController">
+    <main>
+    <section class="cd-section index cd-selected">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="profiletab" role="tablist">
+            <li role="presentation" class="active"><a href="javascript:void(0)" id="profile_tab" aria-controls="profile" role="tab" data-toggle="tab">Profile Overview</a></li>
+            <li role="presentation"><a href="javascript:void(0)" id="education_tab" aria-controls="education" role="tab" data-toggle="tab">Education</a></li>
+            <li role="presentation"><a href="javascript:void(0)" id="proffessional_tab" aria-controls="messages" role="tab" data-toggle="tab">Proffessional</a></li>
+            <li role="presentation"><a href="javascript:void(0)" id="plans_tab" aria-controls="messages" role="tab" data-toggle="tab">Plans</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="profile">
+                <h1>Profile</h1>
+                <div class="row">
+                    <form ng-submit="updateProfile()">
+                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                            <p class="text-danger text-center" ng-if="serverError">{{serverError}}</p>
+                            <div class="form-group" ng-class="error.email?'has-error':''">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" ng-model="profile.first_name" placeholder="First Name">
+                            </div>
+                            <div class="form-group" ng-class="error.password?'has-error':''">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" ng-model="profile.last_name" placeholder="Last Name">
+                            </div>
+                            <div class="form-group" ng-class="error.email?'has-error':''">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" ng-model="profile.email" placeholder="Email">
+                            </div>
+                            <div class="form-group" ng-class="error.password?'has-error':''">
+                                <label>Password</label>
+                                <input type="password" class="form-control" ng-model="profile.password" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-default">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="education">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1>Education History</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="pull-right">
+                            <button type="button" class="add-btn-margin btn btn-success" data-toggle="modal" data-target="#createEducation">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <table class="table table-bordered">
+	                        <thead>
+	                            <th class="text-center">School/College</th>
+	                            <th class="text-center">Degree</th>
+	                            <th class="text-center">Year</th>
+	                            <th class="text-center">Action</th>
+	                        </thead>
+	                        <tbody>
+	                         	<tr ng-repeat="ed in education track by $index">
+	                                <td class="text-center">{{ed.institution}}</td>
+	                                <td class="text-center">{{ed.qualification}}</td>
+	                                <td class="text-center">{{ed.period_start+' -- '+ed.period_end}}</td>
+	                                <td class="text-center">
+	                                <button type="button" class="btn btn-sm btn-info" ng-click="editPopup($index)" data-toggle="modal" data-target="#editEducation"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+	                                	<button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+	                                </td>
+	                            </tr>
+	                            <tr ng-if="education.length==0">
+	                                <td class="text-center" colspan="3">No education details found</td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="proffessional">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1>Professional History</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="pull-right">
+                            <button type="button" class="add-btn-margin btn btn-success" data-toggle="modal" data-target="#createEducation">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <table class="table table-bordered">
+	                        <thead>
+	                            <th class="text-center">School/College</th>
+	                            <th class="text-center">Degree</th>
+	                            <th class="text-center">Year</th>
+	                            <th class="text-center">Action</th>
+	                        </thead>
+	                        <tbody>
+	                         	<tr ng-repeat="ed in education track by $index">
+	                                <td class="text-center">{{ed.institution}}</td>
+	                                <td class="text-center">{{ed.qualification}}</td>
+	                                <td class="text-center">{{ed.period_start+' -- '+ed.period_end}}</td>
+	                                <td class="text-center">
+	                                <button type="button" class="btn btn-sm btn-info" ng-click="editPopup($index)" data-toggle="modal" data-target="#editEducation"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+	                                	<button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+	                                </td>
+	                            </tr>
+	                            <tr ng-if="education.length==0">
+	                                <td class="text-center" colspan="3">No education details found</td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="plans">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1>Subscription History</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+    </main>
+    <!-- Modal -->
+    <div class="modal fade" id="createEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Education</h4>
+                </div>
+                <form role="form" ng-submit="addEdu()">
+	                <div class="modal-body">
+                    	<div class="form-group {{errorEducation.institution?'has-error':''}}">
+                    		<label>School/College</label>
+                    		<input class="form-control" ng-model="addEducation.institution"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.qualification?'has-error':''}}">
+                    		<label>Qualification</label>
+                    		<input class="form-control" ng-model="addEducation.qualification"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
+                    		<label>From</label>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_start" ng-model="addEducation.period_start"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
+                    		<label>To</label>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_end" ng-model="addEducation.period_end"/>
+                    	</div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button type="submit" class="btn btn-primary">Save changes</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Education</h4>
+                </div>
+                <form role="form" ng-submit="editEdu()">
+	                <div class="modal-body">
+                    	<div class="form-group {{errorEducation.institution?'has-error':''}}">
+                    		<label>School/College</label>
+                    		<input class="form-control" ng-model="editEducation.institution"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.qualification?'has-error':''}}">
+                    		<label>Qualification</label>
+                    		<input class="form-control" ng-model="editEducation.qualification"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.period_start?'has-error':''}}">
+                    		<label>From</label>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_start" ng-model="editEducation.period_start"/>
+                    	</div>
+                    	<div class="form-group {{errorEducation.period_end?'has-error':''}}">
+                    		<label>To</label>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_end" ng-model="editEducation.period_end"/>
+                    	</div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button type="submit" class="btn btn-primary">Save changes</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

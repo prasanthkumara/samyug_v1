@@ -1,0 +1,67 @@
+
+<div ng-controller="NewsController">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>News</h1>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-default" data-target="#createEducation">New News</button>
+            </div>
+            <div class="col-lg-12 table-container">
+                <table class="table">
+                    <thead>
+                        <td>Title</td>
+                        <td>Description</td>
+                        <td>Created</td>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="news in newslist">
+                            <td>{{news.title}}</td>
+                            <td>{{news.description}}</td>
+                            <td>{{news.created}}</td>
+                        </tr>
+                        <tr ng-if="newslist.length==0">
+                            <td colspan="3">No news</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <!-- Modal -->
+    <div class="modal fade" id="createEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add News</h4>
+                </div>
+                <form role="form" ng-submit="addNews()">
+	                <div class="modal-body">
+                    	<div class="form-group {{errornews.institution?'has-error':''}}">
+                    		<label>Title</label>
+                    		<input class="form-control" ng-model="addNewsModel.institution"/>
+                    	</div>
+                    	<div class="form-group {{errornews.qualification?'has-error':''}}">
+                    		<label>Description</label>
+                    		<input class="form-control" ng-model="addNewsModel.qualification"/>
+                    	</div>
+                    	<div class="form-group {{errornews.period_start?'has-error':''}}">
+                    		<label>From</label>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_start" ng-model="addNewsModel.period_start"/>
+                    	</div>
+                    	<div class="form-group {{errornews.period_end?'has-error':''}}">
+                    		<label>To</label>
+                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_end" ng-model="addNewsModel.period_end"/>
+                    	</div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button type="submit" class="btn btn-primary">Save changes</button>
+	                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

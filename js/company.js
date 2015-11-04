@@ -119,6 +119,10 @@ yapp.controller("CompanyProfileController", ["$scope", "$location", "$http", fun
 		$(".tab-pane").removeClass("active in");
 		$("#proffessional").addClass("active in");
 	});
+	$('#plans_tab').click(function(){
+		$(".tab-pane").removeClass("active in");
+		$("#plans").addClass("active in");
+	});
 
 	//signup initialize
 	$scope.credential={"email":"","password":""};

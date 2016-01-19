@@ -5,11 +5,11 @@ Class User extends helper
 	public function listUsers()
 	{
 
-		$result=$this->listTable(sprintf("SELECT * FROM company"));
+		$result=$this->listTable(sprintf("SELECT * FROM users"));
 
 		if(empty($result))
 		{
-			return $this->formatError("No companies found");
+			return $this->formatError("No users found");
 		}
 
 		return $result;
@@ -43,11 +43,17 @@ Class User extends helper
 
 	public function insertUser($data)
 	{
+		extract($data);
 		if(isset($data['email']))
 		{
-			$this->checkUser($data['email']);
+			$check=$this->checkUser($data['email']);
+			if(isset($check['error']))
+			{
+				return $check;
+			}
 		}
-		$result=$this->insertRow(sprintf("INSERT INTO users(first_name,last_name,email,password) VALUES('%s','%s','%s','%s')",$data['first_name'],$data['last_name'],$data['email'],$data['password']));
+		$query="INSERT INTO users(first_name,last_name,email,password,role,created) VALUES('%s','%s','%s','%s','%s',NOW())";
+		$result=$this->insertRow($query,array($first_name,$last_name,$email,$password,$role));
 
 		if(!$result)
 		{
@@ -61,7 +67,7 @@ Class User extends helper
 	{
 		$result=$this->getRow(sprintf("SELECT * FROM users WHERE email='%s'",$email));
 
-		if(empty($result))
+		if(!empty($result))
 		{
 			return $this->formatError("Email already exists");
 		}

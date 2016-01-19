@@ -21,6 +21,44 @@ yapp.config(['$routeProvider',function($routeProvider) {
         controller:'pageController'
     });
 }]);
+yapp.run(function($rootScope){
+    switch(SITE_CATEGORY)
+    {
+        case "FURNITURE":
+        $rootScope.siteHeader="Furniture";
+        $rootScope.siteBanner="Banner";
+        $rootScope.siteBanner1="Find, Select, Connect";
+        $rootScope.siteBanner2="Companies, Products & Solutions of :";
+        $rootScope.siteBanner3="Energy Efficiency, Environment, Engineering & Renewable Energy";
+        $rootScope.siteBannerImage="assets/banner_furniture.jpg";
+        break;
+        case "GREEN":
+        $rootScope.siteHeader="Sanyug Green";
+        $rootScope.siteBanner="Green";
+        $rootScope.siteBanner1="Find, Select, Connect";
+        $rootScope.siteBanner2="Companies, Products & Solutions of :";
+        $rootScope.siteBanner3="Energy Efficiency, Environment, Engineering & Renewable Energy";
+        $rootScope.siteBannerImage="assets/banner_green.jpg";
+        break;
+        case "MEDTECH":
+        $rootScope.siteHeader="Cars";
+        $rootScope.siteBanner="Banner";
+        $rootScope.siteBanner1="Find, Select, Connect";
+        $rootScope.siteBanner2="Companies, Products & Solutions of :";
+        $rootScope.siteBanner3="Energy Efficiency, Environment, Engineering & Renewable Energy";
+        $rootScope.siteBannerImage="assets/banner_medtech.jpg";
+        break;
+        case "EVENTS":
+        $rootScope.siteHeader="Cars";
+        $rootScope.siteBanner="Banner";
+        $rootScope.siteBanner1="Find, Select, Connect";
+        $rootScope.siteBanner2="Companies, Products & Solutions of :";
+        $rootScope.siteBanner3="Energy Efficiency, Environment, Engineering & Renewable Energy";
+        $rootScope.siteBannerImage="assets/banner_events.jpg";
+        break;
+    }
+    
+});
 
 yapp.directive('datepicker', ['$document', function($document) {
   return {

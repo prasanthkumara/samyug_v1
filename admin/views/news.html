@@ -1,12 +1,14 @@
 
 <div ng-controller="NewsController">
-    <div class="container">
+    <div class="">
         <div class="row">
             <div class="col-lg-6">
                 <h1>News</h1>
             </div>
             <div class="col-lg-6">
-                <button type="button" class="btn btn-default" data-target="#createEducation">New News</button>
+	            <h1 class="text-right">
+	            	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#createNews">New News</button>
+	            </h1>
             </div>
             <div class="col-lg-12 table-container">
                 <table class="table">
@@ -14,12 +16,14 @@
                         <td>Title</td>
                         <td>Description</td>
                         <td>Created</td>
+                        <td>Delete</td>
                     </thead>
                     <tbody>
                         <tr ng-repeat="news in newslist">
                             <td>{{news.title}}</td>
                             <td>{{news.description}}</td>
                             <td>{{news.created}}</td>
+                            <td><a href="javascript:void(0)" ng-click="delete(news.id)">delete</td>
                         </tr>
                         <tr ng-if="newslist.length==0">
                             <td colspan="3">No news</td>
@@ -30,7 +34,7 @@
         </div>
     </div>
         <!-- Modal -->
-    <div class="modal fade" id="createEducation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="createNews" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -39,21 +43,22 @@
                 </div>
                 <form role="form" ng-submit="addNews()">
 	                <div class="modal-body">
-                    	<div class="form-group {{errornews.institution?'has-error':''}}">
+                    	<div class="form-group {{errornews.title?'has-error':''}}">
                     		<label>Title</label>
-                    		<input class="form-control" ng-model="addNewsModel.institution"/>
+                    		<input class="form-control" ng-model="addNewsModel.title"/>
                     	</div>
-                    	<div class="form-group {{errornews.qualification?'has-error':''}}">
+                    	<div class="form-group {{errornews.description?'has-error':''}}">
                     		<label>Description</label>
-                    		<input class="form-control" ng-model="addNewsModel.qualification"/>
+                    		<input class="form-control" ng-model="addNewsModel.description"/>
                     	</div>
-                    	<div class="form-group {{errornews.period_start?'has-error':''}}">
-                    		<label>From</label>
-                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_start" ng-model="addNewsModel.period_start"/>
-                    	</div>
-                    	<div class="form-group {{errornews.period_end?'has-error':''}}">
-                    		<label>To</label>
-                    		<input class="form-control datepicker" datepicker data-date-format="yyyy-mm-dd" name="period_end" ng-model="addNewsModel.period_end"/>
+                    	<div class="form-group {{errornews.category?'has-error':''}}">
+                    		<label>Category</label>
+                    		<select class="form-control" name="category" ng-model="addNewsModel.category">
+                    			<option value="">No value selected</option>
+                    			<option value="MACHINERY">Machinery</option>
+                    			<option value="CARS">Cars</option>
+                    			<option value="FURNITURE">Furniture</option>
+                    		</select>
                     	</div>
 	                </div>
 	                <div class="modal-footer">

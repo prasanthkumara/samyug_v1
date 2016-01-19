@@ -42,7 +42,6 @@ Class Admin extends helper
 
 		$result["email"]=$_SESSION['email'];
 		$result["id"]=$_SESSION['id'];
-		$result["company_id"]=$_SESSION['company_id'];
 		$result["first_name"]=$_SESSION['first_name'];
 		$result["last_name"]=$_SESSION['last_name'];
 

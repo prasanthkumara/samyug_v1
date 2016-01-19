@@ -13,5 +13,33 @@ Class News extends helper
 
 		return $result;
 	}
+
+	public function addNews($data)
+	{
+		extract($data);
+		$query="INSERT INTO news(title,description,created) VALUES('%s','%s',NOW())";
+		$result=$this->insertRow($query,array($title,$description));
+
+		if(isset($result['error']))
+		{
+			return $result;
+		}
+
+		return $result;
+	}
+
+	public function deleteNews($data)
+	{
+		extract($data);
+		$query="UPDATE news SET deleted=1 WHERE id='%s'";
+		$result=$this->insertRow($query,array($news_id));
+
+		if(isset($result['error']))
+		{
+			return $result;
+		}
+
+		return $result;
+	}
 }
 ?>

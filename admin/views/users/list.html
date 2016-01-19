@@ -1,0 +1,79 @@
+<div ng-controller="UserController">
+    <div class="row">
+    	<div class="col-lg-6">
+    		<h1>User</h1>	
+    	</div>
+    	<div class="col-lg-6">
+    		<h1 class="text-right">
+    			<button class="btn btn-default" data-toggle="modal" data-target="#createusermodal">Create User</button>	
+    		</h1>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col-lg-12">
+    		<table class="table">
+                <thead>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Phone number</td>
+                    <td>Role</td>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>{{user.first_name + ' '+user.last_name }}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.phone_number}}</td>
+                        <td>{{user.role}}</td>
+                    </tr>
+                    <tr ng-if="users.length==0">
+                        <td class="text-center" colspan="4">No users found</td>
+                    </tr>
+                </tbody>
+            </table>
+    	</div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createusermodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add User</h4>
+                </div>
+                <form role="form" ng-submit="add()">
+                    <div class="modal-body">
+                        <p class="text-danger" ng-if="serverError">{{serverError}}</p>
+                        <div class="form-group {{error.first_name?'has-error':''}}">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" ng-model="credential.first_name"/>
+                        </div>
+                        <div class="form-group {{error.last_name?'has-error':''}}">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" ng-model="credential.last_name"/>
+                        </div>
+                        <div class="form-group {{error.last_name?'has-error':''}}">
+                            <label>Email</label>
+                            <input type="email" class="form-control" ng-model="credential.email"/>
+                        </div>
+                        <div class="form-group {{error.last_name?'has-error':''}}">
+                            <label>Password</label>
+                            <input type="password" class="form-control" ng-model="credential.password"/>
+                        </div>
+                        <div class="form-group {{error.role?'has-error':''}}">
+                            <label>Role</label>
+                            <select class="form-control" name="category" ng-model="credential.role">
+                                <option value="">No value selected</option>
+                                <option value="AFFILIATES">Affiliates</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,23 +1,55 @@
 <div ng-include="'includes/homenav.html'"></div>
-<div ng-controller="HomeController">
-<h1>Latest News on {{(SITE_CATEGORY=='GREEN')?'Environment':''}}{{(SITE_CATEGORY=='FURNITURE')?'Furnitures':''}}{{(SITE_CATEGORY=='MACHINERY')?'Machines':''}}</h1>
-	<div class="table-container">
-		<table class="table">
-			<thead>
-				<td>Title</td>
-				<td>Description</td>
-				<td>Created</td>
-			</thead>
-			<tbody>
-				<tr ng-repeat="news in newslist">
-					<td>{{news.title}}</td>
-					<td>{{news.description}}</td>
-					<td>{{news.created}}</td>
-				</tr>
-				<tr ng-if="newslist.length==0">
-					<td colspan="3">No news</td>
-				</tr>
-			</tbody>	
-		</table>
+<div ng-controller="HomeController" class="home-container">
+	<div class="row home-banner-container" style="background:url({{siteBannerImage}}) no-repeat fixed center;padding-top:40px;margin-top:-50px;background-size: cover;">
+		<div class="col-lg-12 homeBanner">
+			<header>{{siteHeader}}</header>
+			<h1 class="text-center">{{siteBanner1}}</h1>
+			<h2 class="text-center">{{siteBanner2}}</h2>
+			<div class="home-center">
+				<form class="row">
+					<div class="col-lg-5">
+						<div class="form-group">
+							<input class="input-lg form-control" placeholder="What are you looking for ?"/>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="form-group">
+							<input class="input-lg form-control"/>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="form-group">
+							<button class="btn btn-lg btn-block btn-danger">Search</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<h3 class="text-center">{{siteBanner3}}</h3>
+		</div>
+	</div>
+	<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+			  <div class="panel-heading">EXPLORE SAMYUJ GREEN BY PRODUCT CATEGORY<a href="javascript:void(0)" class="pull-right">VIEW ALL LISTINGS</a></div>
+			  <div class="panel-body">
+			    Panel content
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading">FEATURED PRODUCTS</div>
+			  <div class="panel-body">
+			    Panel content
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading">RECENTLY ADDED COMPANIES</div>
+			  <div class="panel-body">
+			    Panel content
+			  </div>
+			</div>
+		</div>
+	</div>
+		
 	</div>
 </div>

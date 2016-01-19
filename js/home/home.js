@@ -1,11 +1,10 @@
 yapp.controller("HomeController", ["$scope", "$location", "$http", function($scope, $location, $http) {
 	var data={"category":SITE_CATEGORY};
 	$scope.SITE_CATEGORY=SITE_CATEGORY;
-	console.log(data);
 	//get news related to domain
 	$http({
 	    method: "POST",
-	    url: HOST + API_PATH + "/users/news.php",
+	    url: HOST + API_PATH + "/products/listcategories.php",
 	    data:$.param(data),
 	    headers: {
 	        "Content-Type": "application/x-www-form-urlencoded"
@@ -20,4 +19,6 @@ yapp.controller("HomeController", ["$scope", "$location", "$http", function($sco
 	    	$scope.newslist=success.data;
 	    }
 	});
+
+	
 }]);

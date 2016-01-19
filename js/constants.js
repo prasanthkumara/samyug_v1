@@ -15,4 +15,5 @@ switch(HOST)
 	SITE_CATEGORY='MACHINERY';
 	break;
 }
+console.log(SITE_CATEGORY);
 var API_PATH="/api";

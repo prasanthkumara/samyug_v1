@@ -83,6 +83,13 @@ Class Products extends helper
 		return $result;
 	}
 
+	public function listCategories()
+	{
+		$result=$this->listTable(sprintf("SELECT DISTINCT category FROM products WHERE deleted=0"));
+
+		return $result;
+	}
+
 	public function login($data)
 	{
 		extract($data);
